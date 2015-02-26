@@ -14,4 +14,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $fillable = ['firstname', 'lastname', 'email'];
 	protected $hidden 	= ['remember_token'];
 
+	public function posts()
+	{
+		return $this->hasMany('Blog\Posts', 'created_by');
+	}
+
 }

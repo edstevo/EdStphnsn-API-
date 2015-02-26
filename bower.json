@@ -1,0 +1,24 @@
+{
+  "name": "Ed_Stphnsn",
+  "version": "0.0.1",
+  "homepage": "https://github.com/edstevo/ed-blog",
+  "description": "Blog Written By Ed Stephenson",
+  "keywords": [
+    "Laravel",
+    "Node",
+    "Blog",
+    "Business",
+    "Music",
+    "Travel"
+  ],
+  "authors": [
+    "Ed Stephenson"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "foundation": "~5.5.1",
+    "font-awesome": "~4.3.0",
+    "jquery": "~2.1.3"
+  }
+}

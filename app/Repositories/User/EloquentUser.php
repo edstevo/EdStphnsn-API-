@@ -17,4 +17,21 @@ class EloquentUser implements UserInterface {
 			]);
 	}
 
+	public function getPosts($user)
+	{
+		return $this->user->find($user->id)
+						->posts()
+						->orderBy('created_at', 'DESC')
+						->get();
+	}
+
+	public function getDraftPosts($user)
+	{
+		return $this->user->find($user->id)
+						->posts()
+						->where('draft', true)
+						->orderBy('updated_at', 'DESC')
+						->get();
+	}
+
 }

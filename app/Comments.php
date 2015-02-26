@@ -10,7 +10,7 @@ class Comments extends Model {
 
 	public function creator()
 	{
-		return $this->belongsTo('Blog\User');
+		return $this->belongsTo('Blog\User', 'created_by');
 	}
 
 	public function created_data()

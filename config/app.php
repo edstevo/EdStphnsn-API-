@@ -136,6 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Laravel\Socialite\SocialiteServiceProvider',
+		'Appitventures\Phpgmaps\PhpgmapsServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -144,6 +145,7 @@ return [
 		'Blog\Providers\BusServiceProvider',
 		'Blog\Providers\ConfigServiceProvider',
 		'Blog\Providers\EventServiceProvider',
+		'Blog\Providers\ObserverServiceProvider',
 		'Blog\Providers\RepositoryServiceProvider',
 		'Blog\Providers\RouteServiceProvider',
 
@@ -175,6 +177,7 @@ return [
 		'Eloquent'  => 'Illuminate\Database\Eloquent\Model',
 		'Event'     => 'Illuminate\Support\Facades\Event',
 		'File'      => 'Illuminate\Support\Facades\File',
+		'Gmaps' 	=> 'Appitventures\Phpgmaps\Facades\Phpgmaps',
 		'Hash'      => 'Illuminate\Support\Facades\Hash',
 		'Input'     => 'Illuminate\Support\Facades\Input',
 		'Inspiring' => 'Illuminate\Foundation\Inspiring',

@@ -11,12 +11,20 @@
 |
 */
 
-// Auth::loginUsingId(1);
+Auth::loginUsingId(1);
 
-Route::get('/', 'HomeController@index');
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@login']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Route::resource('blog', 'BlogController', array('only' => array('index', 'show')));
+Route::resource('travel', 'TravelController', array('only' => array('index', 'show')));
+
+Route::resource('posts', 'PostController', array('only' => array('index', 'store', 'show', 'update')));
+Route::get('drafts', 'PostController@draftPosts');
+
+Route::get('/core/post-types', ['as' => 'core.post-types', 'uses' => 'CoreController@getPostTypes']);
