@@ -11,8 +11,6 @@
 |
 */
 
-Auth::loginUsingId(1);
-
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@login']);
 
@@ -29,5 +27,7 @@ Route::resource('travel', 'TravelController', array('only' => array('index', 'sh
 
 Route::resource('posts', 'PostController', array('only' => array('index', 'store', 'show', 'update')));
 Route::get('drafts', 'PostController@draftPosts');
+
+Route::get('tags', 'TagController@index');
 
 Route::get('/core/post-types', ['as' => 'core.post-types', 'uses' => 'CoreController@getPostTypes']);

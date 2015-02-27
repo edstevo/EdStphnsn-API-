@@ -22,7 +22,7 @@ class EloquentPosts implements PostsInterface {
 	public function find($post_id)
 	{
 		return $this->posts
-					->with('creator')
+					->with(['creator', 'tags'])
 					->find($post_id);
 	}
 
@@ -56,6 +56,13 @@ class EloquentPosts implements PostsInterface {
 	public function delete($post_id)
 	{
 		return $this->posts->find($post_id)->delete();
+	}
+
+	public function syncTags($post_id, $tag_ids)
+	{
+		return $this->posts->find($post_id)
+							->tags()
+							->sync($tag_ids);
 	}
 
 }

@@ -43,8 +43,10 @@ class PostController extends Controller {
 	public function store(StorePostRequest $request)
 	{
 		$post			= $this->posts->updateOrCreate($request->only('id', 'title', 'type', 'draft', 'content'));
-		$post->content 	= $this->post_functions->removeLinks($post->content);
-		return Response::make(['data'	=> $post], 200);
+		$tags 			= $this->tag_functions->convertToIds($request->get('tags'));
+		$sync_tags 		= $this->posts->syncTags($post->id, $tags);
+
+		return $this->show($post->id);
 	}
 
 	public function show($post_id)
@@ -57,8 +59,10 @@ class PostController extends Controller {
 	public function update(UpdatePostRequest $request, $post_id)
 	{
 		$post			= $this->posts->update($post_id, $request->only('title', 'type', 'draft', 'content'));
-		$post->content 	= $this->post_functions->removeLinks($post->content);
-		return Response::make(['data'	=> $post], 200);
+		$tags 			= $this->tag_functions->convertToIds($request->get('tags'));
+		$sync_tags 		= $this->posts->syncTags($post->id, $tags);
+
+		return $this->show($post->id);
 	}
 
 	public function destroy($post_id)

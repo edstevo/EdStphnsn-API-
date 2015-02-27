@@ -17,7 +17,7 @@ class EloquentBlog implements BlogInterface {
 	public function all($skip = null)
 	{
 		return $this->posts
-			->with('creator')
+			->with(['creator', 'tags'])
 			->where('type', $this->post_type)
 			->where('draft', false)
 			->orderBy('created_at', 'DESC')
@@ -29,7 +29,7 @@ class EloquentBlog implements BlogInterface {
 	public function latest()
 	{
 		return $this->posts
-			->with('creator')
+			->with(['creator', 'tags'])
 			->where('type', $this->post_type)
 			->where('draft', false)
 			->orderBy('created_at', 'DESC')

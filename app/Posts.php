@@ -7,7 +7,7 @@ class Posts extends Model {
 
     use SoftDeletes;
 
-    protected $dates 	= ['deleted_at'];
+	protected $dates 	= ['deleted_at'];
 	protected $table 	= 'posts';
 	protected $fillable = ['title', 'content', 'lat', 'lng'];
 	protected $hidden 	= [];
@@ -29,6 +29,11 @@ class Posts extends Model {
 	public function comments()
 	{
 		return $this->hasMany('Blog\Comments');
+	}
+
+	public function tags()
+	{
+		return $this->belongsToMany('Blog\Tags');
 	}
 
 }

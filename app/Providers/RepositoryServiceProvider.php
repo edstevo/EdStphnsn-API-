@@ -11,6 +11,9 @@ use Blog\Repositories\Travel\EloquentTravel;
 use Blog\Comments;
 use Blog\Repositories\Comments\EloquentComments;
 
+use Blog\Tags;
+use Blog\Repositories\Tags\EloquentTags;
+
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider {
@@ -40,6 +43,10 @@ class RepositoryServiceProvider extends ServiceProvider {
 				new Posts,
 				$this->app->make('Blog\Functions\Posts\PostsFunctions')
 			);
+		});
+
+		$this->app->bind('Blog\Repositories\Tags\TagsInterface', function($app) {
+			return new EloquentTags(new Tags);
 		});
 
 		$this->app->bind('Blog\Repositories\Travel\TravelInterface', function($app) {
