@@ -21,7 +21,10 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::resource('blog', 'BlogController', array('only' => array('index', 'show')));
+Route::get('blog', 'BlogController@index');
+Route::get('blog/latest', 'BlogController@latest');
+Route::get('blog/{post_id}', 'BlogController@show')->where('post_id', '[0-9]+');
+
 Route::resource('travel', 'TravelController', array('only' => array('index', 'show')));
 
 Route::resource('posts', 'PostController', array('only' => array('index', 'store', 'show', 'update')));

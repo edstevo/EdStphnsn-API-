@@ -18,6 +18,7 @@ class EloquentTravel implements TravelInterface {
 	{
 		return $this->posts
 			->where('type', $this->post_type)
+			->where('draft', false)
 			->get();
 	}
 

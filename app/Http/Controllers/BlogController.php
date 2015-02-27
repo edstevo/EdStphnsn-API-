@@ -4,89 +4,36 @@ use Blog\Http\Requests;
 use Blog\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Response;
 
+use Blog\Repositories\Blog\BlogInterface;
 use Blog\Repositories\Posts\PostsInterface;
 
 class BlogController extends Controller {
 
-	public function __construct(	PostsInterface $posts 	)
+	public function __construct(	BlogInterface $blog,
+									PostsInterface $posts 	)
 	{
+		$this->blog 	= $blog;
 		$this->posts 	= $posts;
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
+	public function index($skip = null)
 	{
-		$posts 	= $this->posts->all();
-		return view('blog.all', ['posts' => $posts]);
+		$all_posts 	= $this->blog->all($skip);
+		return Response::make(['data' => $all_posts], 200);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
+	public function show($post_id)
 	{
-		//
+		$post 	= $this->posts->find($post_id);
+		return Response::make(['data' => $post], 200);
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+	public function latest()
 	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+		$latest_posts 	= $this->blog->latest();
+		return Response::make(['data' => $latest_posts], 200);
 	}
 
 }

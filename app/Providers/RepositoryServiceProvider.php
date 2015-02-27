@@ -4,6 +4,7 @@ use Blog\User;
 use Blog\Repositories\User\EloquentUser;
 
 use Blog\Posts;
+use Blog\Repositories\Blog\EloquentBlog;
 use Blog\Repositories\Posts\EloquentPosts;
 use Blog\Repositories\Travel\EloquentTravel;
 
@@ -30,13 +31,15 @@ class RepositoryServiceProvider extends ServiceProvider {
 	 */
 	public function register() {
 
-		//	User Repository
-		$this->app->bind('Blog\Repositories\User\UserInterface', function($app) {
-			return new EloquentUser(new User);
+		$this->app->bind('Blog\Repositories\Blog\BlogInterface', function($app) {
+			return new EloquentBlog(new Posts);
 		});
 
 		$this->app->bind('Blog\Repositories\Posts\PostsInterface', function($app) {
-			return new EloquentPosts(new Posts);
+			return new EloquentPosts(
+				new Posts,
+				$this->app->make('Blog\Functions\Posts\PostsFunctions')
+			);
 		});
 
 		$this->app->bind('Blog\Repositories\Travel\TravelInterface', function($app) {
@@ -45,6 +48,10 @@ class RepositoryServiceProvider extends ServiceProvider {
 
 		$this->app->bind('Blog\Repositories\Comments\CommentsInterface', function($app) {
 			return new EloquentComments(new Comments);
+		});
+
+		$this->app->bind('Blog\Repositories\User\UserInterface', function($app) {
+			return new EloquentUser(new User);
 		});
 
 	}

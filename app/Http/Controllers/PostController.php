@@ -12,17 +12,20 @@ use Response;
 use Log;
 
 use Blog\Repositories\Posts\PostsInterface;
+use Blog\Functions\Posts\PostsFunctions;
 use Blog\Repositories\User\UserInterface;
 
 class PostController extends Controller {
 
 	public function __construct(	Guard $auth,
 									PostsInterface $posts,
+									PostsFunctions $post_functions,
 									UserInterface $user 	)
 	{
-		$this->auth 	= $auth;
-		$this->posts 	= $posts;
-		$this->user 	= $user;
+		$this->auth 			= $auth;
+		$this->posts 			= $posts;
+		$this->post_functions 	= $post_functions;
+		$this->user 			= $user;
 	}
 
 	public function index()
@@ -39,19 +42,22 @@ class PostController extends Controller {
 
 	public function store(StorePostRequest $request)
 	{
-		$post	= $this->posts->updateOrCreate($request->only('id', 'title', 'type', 'draft', 'content'));
+		$post			= $this->posts->updateOrCreate($request->only('id', 'title', 'type', 'draft', 'content'));
+		$post->content 	= $this->post_functions->removeLinks($post->content);
 		return Response::make(['data'	=> $post], 200);
 	}
 
 	public function show($post_id)
 	{
-		$post	= $this->posts->find($post_id);
+		$post			= $this->posts->find($post_id);
+		$post->content 	= $this->post_functions->removeLinks($post->content);
 		return Response::make(['data'	=> $post], 200);
 	}
 
 	public function update(UpdatePostRequest $request, $post_id)
 	{
-		$post	= $this->posts->update($post_id, $request->only('title', 'type', 'draft', 'content'));
+		$post			= $this->posts->update($post_id, $request->only('title', 'type', 'draft', 'content'));
+		$post->content 	= $this->post_functions->removeLinks($post->content);
 		return Response::make(['data'	=> $post], 200);
 	}
 

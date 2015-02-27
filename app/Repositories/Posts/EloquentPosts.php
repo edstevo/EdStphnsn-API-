@@ -1,5 +1,8 @@
 <?php namespace Blog\Repositories\Posts;
 
+//	Functions
+use Blog\Functions\Posts\PostsFunctions;
+
 //	Models
 use Blog\Posts;
 
@@ -8,19 +11,25 @@ use Config;
 
 class EloquentPosts implements PostsInterface {
 
-	public function __construct(Posts $posts)
+	public function __construct(	Posts $posts,
+									PostsFunctions $post_functions	)
 	{
-		$this->posts 		= $posts;
-		$this->post_type	= Config::get('constants.post_types.blog');
+		$this->posts 			= $posts;
+		$this->post_functions	= $post_functions;
+		$this->post_type		= Config::get('constants.post_types.blog');
 	}
 
 	public function find($post_id)
 	{
-		return $this->posts->find($post_id);
+		return $this->posts
+					->with('creator')
+					->find($post_id);
 	}
 
 	public function updateOrCreate($post_data)
 	{
+		$post_data['content']	= $this->post_functions->linkifyContent($post_data['content']);
+
 		$post = $this->posts->firstOrNew(['id' => $post_data['id']]);
 		$post->title 	= $post_data['title'];
 		$post->content 	= $post_data['content'];
@@ -31,6 +40,8 @@ class EloquentPosts implements PostsInterface {
 
 	public function update($post_id, $post_data)
 	{
+		$post_data['content']	= $this->post_functions->linkifyContent($post_data['content']);
+
 		$post = $this->posts->find($post_id);
 
 		foreach($post_data as $key => $value)
