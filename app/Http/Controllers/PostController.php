@@ -12,19 +12,23 @@ use Response;
 use Log;
 
 use Blog\Repositories\Posts\PostsInterface;
-use Blog\Functions\Posts\PostsFunctions;
 use Blog\Repositories\User\UserInterface;
+
+use Blog\Functions\Posts\PostsFunctions;
+use Blog\Functions\Tag\TagFunctions;
 
 class PostController extends Controller {
 
 	public function __construct(	Guard $auth,
 									PostsInterface $posts,
 									PostsFunctions $post_functions,
+									TagFunctions $tag_functions,
 									UserInterface $user 	)
 	{
 		$this->auth 			= $auth;
 		$this->posts 			= $posts;
 		$this->post_functions 	= $post_functions;
+		$this->tag_functions 	= $tag_functions;
 		$this->user 			= $user;
 	}
 
