@@ -22,13 +22,13 @@ class PostController extends Controller {
 	public function __construct(	Guard $auth,
 									PostsInterface $posts,
 									PostsFunctions $post_functions,
-									TagFunctions $tag_functions,
+									TagsFunctions $tags_functions,
 									UserInterface $user 	)
 	{
 		$this->auth 			= $auth;
 		$this->posts 			= $posts;
 		$this->post_functions 	= $post_functions;
-		$this->tag_functions 	= $tag_functions;
+		$this->tags_functions 	= $tags_functions;
 		$this->user 			= $user;
 	}
 
@@ -47,7 +47,7 @@ class PostController extends Controller {
 	public function store(StorePostRequest $request)
 	{
 		$post			= $this->posts->updateOrCreate($request->only('id', 'title', 'type', 'draft', 'content'));
-		$tags 			= $this->tag_functions->convertToIds($request->get('tags'));
+		$tags 			= $this->tags_functions->convertToIds($request->get('tags'));
 		$sync_tags 		= $this->posts->syncTags($post->id, $tags);
 
 		return $this->show($post->id);
@@ -63,7 +63,7 @@ class PostController extends Controller {
 	public function update(UpdatePostRequest $request, $post_id)
 	{
 		$post			= $this->posts->update($post_id, $request->only('title', 'type', 'draft', 'content'));
-		$tags 			= $this->tag_functions->convertToIds($request->get('tags'));
+		$tags 			= $this->tags_functions->convertToIds($request->get('tags'));
 		$sync_tags 		= $this->posts->syncTags($post->id, $tags);
 
 		return $this->show($post->id);
