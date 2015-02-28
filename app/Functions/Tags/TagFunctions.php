@@ -1,6 +1,6 @@
-<?php namespace Blog\Functions\Posts;
+<?php namespace Blog\Functions\Tags;
 
-class TagFunctions {
+class TagsFunctions {
 
 	public function __construct()
 	{

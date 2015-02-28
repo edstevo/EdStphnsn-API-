@@ -15,7 +15,7 @@ use Blog\Repositories\Posts\PostsInterface;
 use Blog\Repositories\User\UserInterface;
 
 use Blog\Functions\Posts\PostsFunctions;
-use Blog\Functions\Tag\TagFunctions;
+use Blog\Functions\Tags\TagsFunctions;
 
 class PostController extends Controller {
 
