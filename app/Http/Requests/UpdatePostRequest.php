@@ -23,7 +23,8 @@ class UpdatePostRequest extends Request {
 	{
 		return [
 			'type'	=> 'integer',
-			'draft'	=> 'boolean'
+			'draft'	=> 'boolean',
+			'tags'	=> 'array'
 		];
 	}
 
