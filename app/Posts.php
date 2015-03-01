@@ -10,6 +10,7 @@ class Posts extends Model {
 	protected $dates 	= ['deleted_at'];
 	protected $table 	= 'posts';
 	protected $fillable = ['title', 'content', 'lat', 'lng'];
+	protected $appends 	= [];
 	protected $hidden 	= [];
 
 	public function creator()

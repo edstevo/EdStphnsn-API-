@@ -15,7 +15,7 @@ class EloquentTags implements TagsInterface {
 
 	public function all()
 	{
-		return $this->tags->all();
+		return $this->tags->has('posts')->get();
 	}
 
 	public function findByName($name)
