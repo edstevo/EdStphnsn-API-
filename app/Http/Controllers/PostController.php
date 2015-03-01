@@ -48,7 +48,10 @@ class PostController extends Controller {
 	{
 		$post			= $this->posts->updateOrCreate($request->only('id', 'title', 'type', 'draft', 'content'));
 		$tags 			= $this->tags_functions->convertToIds($request->get('tags'));
-		$sync_tags 		= $this->posts->syncTags($post->id, $tags);
+		if (!empty($tags))
+		{
+			$sync_tags 	= $this->posts->syncTags($post->id, $tags);
+		}
 
 		return $this->show($post->id);
 	}
@@ -64,7 +67,10 @@ class PostController extends Controller {
 	{
 		$post			= $this->posts->update($post_id, $request->only('title', 'type', 'draft', 'content'));
 		$tags 			= $this->tags_functions->convertToIds($request->get('tags'));
-		$sync_tags 		= $this->posts->syncTags($post->id, $tags);
+		if (!empty($tags))
+		{
+			$sync_tags 	= $this->posts->syncTags($post->id, $tags);
+		}
 
 		return $this->show($post->id);
 	}

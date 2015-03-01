@@ -22,9 +22,9 @@ class StorePostRequest extends Request {
 	public function rules()
 	{
 		return [
-			'type'	=> 'integer',
-			'draft'	=> 'boolean',
-			'tags'	=> 'array'
+			'type'		=> 'integer',
+			'draft'		=> 'boolean',
+			'tags'		=> 'array'
 		];
 	}
 

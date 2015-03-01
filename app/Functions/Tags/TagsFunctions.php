@@ -1,18 +1,26 @@
 <?php namespace Blog\Functions\Tags;
 
+use Blog\Repositories\Tags\TagsInterface;
+
 class TagsFunctions {
 
-	public function __construct()
+	public function __construct(TagsInterface $tags)
 	{
-
+		$this->tags 	= $tags;
 	}
 
 	public function convertToIds($tags)
 	{
-		$ids 	= [];
-		foreach($tags as $tag)
+		$ids 		= [];
+		if (is_null($tags))
 		{
-			array_push($ids, $this->tag->findByName($tag));
+			$ids 	= [];
+		} else {
+
+			foreach($tags as $tag)
+			{
+				array_push($ids, $this->tags->findByName($tag)->id);
+			}
 		}
 		return $ids;
 	}
