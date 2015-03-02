@@ -6,9 +6,14 @@ use Blog\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Response;
 
-use Gmaps;
+use Blog\Repositories\Travel\TravelInterface;
 
 class TravelController extends Controller {
+
+	public function __construct(	TravelInterface $travel 	)
+	{
+		$this->travel 			= $travel;
+	}
 
 	/**
 	 * Display a listing of the resource.

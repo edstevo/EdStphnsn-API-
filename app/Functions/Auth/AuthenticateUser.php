@@ -18,24 +18,22 @@ class AuthenticateUser {
 		$this->user 		= $user;
 	}
 
-	public function execute($has_code, $listener)
+	public function execute($has_code)
 	{
 		if (!$has_code)
 		{
 			return $this->getAuthorizationFirst();
 		}
 
-		$user 	= Socialise::with('facebook')->user();
+		$user 	= Socialise::with('twitter')->user();
 		$user 	= $this->user->findByEmailOrCreate($user->getEmail());
 
-		$this->auth->login($user, true);
-
-		return $listener->userHasLoggedIn($user);
+		return $this->auth->login($user, true);
 	}
 
 	private function getAuthorizationFirst()
 	{
-		return Socialise::with('facebook')->redirect();
+		return Socialise::with('twitter')->redirect();
 	}
 
 }

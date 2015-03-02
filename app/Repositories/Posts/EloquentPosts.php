@@ -31,9 +31,12 @@ class EloquentPosts implements PostsInterface {
 		$post_data['content']	= $this->post_functions->linkifyContent($post_data['content']);
 
 		$post = $this->posts->firstOrNew(['id' => $post_data['id']]);
-		$post->title 	= $post_data['title'];
-		$post->content 	= $post_data['content'];
-		$post->type 	= $post_data['type'];
+		$post->title 				= $post_data['title'];
+		$post->content 				= $post_data['content'];
+		$post->type 				= $post_data['type'];
+		$post->lat 					= $post_data['lat'];
+		$post->lng 					= $post_data['lng'];
+		$post->formatted_address 	= $post_data['formatted_address'];
 		$post->save();
 		return $post;
 	}

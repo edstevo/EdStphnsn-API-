@@ -36,7 +36,8 @@ class AuthController extends Controller {
 	public function login(	AuthenticateUser $authenticateUser,
 							Request $request )
 	{
-		$authenticateUser->execute($request->has('code'), $this);
+		$code = $authenticateUser->execute($request->has('code'), $this);
+		return Response::make(['data' => 'code'], 200);
 	}
 
 	public function userHasLoggedIn($user)

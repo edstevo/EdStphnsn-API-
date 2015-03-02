@@ -34,16 +34,10 @@ return [
 		'secret' => '',
 	],
 
-	'github'	=> [
-		'client_id'		=> getenv('GITHUB_CLIENT_ID'),
-		'client_secret'	=> getenv('GITHUB_CLIENT_SECRET'),
-		'redirect'		=> 'http://www.blog.net/login'
-	],
-
-	'facebook'	=> [
-		'client_id'		=> getenv('FB_CLIENT_KEY'),
-		'client_secret'	=> getenv('FB_CLIENT_SECRET'),
-		'redirect'		=> 'http://www.blog.net/login'
+	'twitter'	=> [
+		'client_id'		=> getenv('TWITTER_CONSUMER_KEY'),
+		'client_secret'	=> getenv('TWITTER_CONSUMER_SECRET'),
+		'redirect'		=> 'http://api.blog.net/login'
 	],
 
 ];
