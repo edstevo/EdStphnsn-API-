@@ -7,8 +7,6 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Response;
 
-use Blog\Functions\Auth\AuthenticateUser;
-
 class AuthController extends Controller {
 
 	/*
@@ -29,20 +27,12 @@ class AuthController extends Controller {
 	{
 		$this->auth 				= $auth;
 		$this->registrar 			= $registrar;
-
-		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
-	public function login(	AuthenticateUser $authenticateUser,
-							Request $request )
+	public function adminCheck(Request $request)
 	{
-		$code = $authenticateUser->execute($request->has('code'), $this);
-		return Response::make(['data' => 'code'], 200);
-	}
-
-	public function userHasLoggedIn($user)
-	{
-		return redirect('/');
+		$user_data	= $this->auth->user();
+		return Response::make(['data' => $user_data], 200);
 	}
 
 }

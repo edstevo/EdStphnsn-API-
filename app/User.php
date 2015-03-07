@@ -10,19 +10,28 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	use Authenticatable, CanResetPassword;
 
-	protected $table = 'users';
-	protected $fillable = ['firstname', 'lastname', 'email'];
-	protected $appends 	= ['fullname'];
-	protected $hidden 	= ['remember_token'];
+	protected $table 	= 'users';
+	protected $fillable = ['firstname', 'lastname', 'username', 'admin'];
+	protected $appends 	= ['name'];
+	protected $hidden 	= ['firstname', 'lastname', 'username', 'remember_token'];
 
 	public function posts()
 	{
 		return $this->hasMany('Blog\Posts', 'created_by');
 	}
 
-	public function getFullnameAttribute()
+	public function getNameAttribute()
 	{
+		if (is_null($this->firstname))
+		{
+			return $this->username;
+		}
+
 		return $this->firstname." ".$this->lastname;
+	}
+
+	public function getAdminAttribute($value) {
+		return ($value) ? true : false;
 	}
 
 }
