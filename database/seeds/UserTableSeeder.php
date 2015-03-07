@@ -10,9 +10,9 @@ class UserTableSeeder extends Seeder {
 		DB::table('users')->delete();
 
 		$user = Blog\User::create(array(
-			'firstname'				=> 'Ed',
-			'lastname'				=> 'Stephenson',
-			'email'					=> 'edward.stephenson@me.com',
+			'firstname'		=> 'Ed',
+			'lastname'		=> 'Stephenson',
+			'username'		=> 'ed_stphnsn',
 		));
 
 	}
