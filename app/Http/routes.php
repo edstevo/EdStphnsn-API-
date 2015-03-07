@@ -28,9 +28,12 @@ Route::get('blog/{post_id}', 'BlogController@show')->where('post_id', '[0-9]+');
 
 Route::resource('travel', 'TravelController', array('only' => array('index', 'show')));
 
-Route::resource('posts', 'PostController', array('only' => array('index', 'store', 'show', 'update')));
-Route::get('drafts', 'PostController@draftPosts');
-
 Route::get('tags', 'TagController@index');
 
 Route::get('/core/post-types', ['as' => 'core.post-types', 'uses' => 'CoreController@getPostTypes']);
+
+Route::group(['middleware' => 'auth.basic'], function()
+{
+	Route::resource('posts', 'PostController', array('only' => array('index', 'store', 'show', 'update')));
+	Route::get('drafts', 'PostController@draftPosts');
+});
