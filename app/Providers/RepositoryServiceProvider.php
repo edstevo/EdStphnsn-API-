@@ -8,11 +8,17 @@ use Blog\Repositories\Blog\EloquentBlog;
 use Blog\Repositories\Posts\EloquentPosts;
 use Blog\Repositories\Travel\EloquentTravel;
 
+use Blog\Playlists;
+use Blog\Repositories\Playlists\EloquentPlaylists;
+
 use Blog\Comments;
 use Blog\Repositories\Comments\EloquentComments;
 
 use Blog\Tags;
 use Blog\Repositories\Tags\EloquentTags;
+
+use Blog\Tracks;
+use Blog\Repositories\Tracks\EloquentTracks;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -45,8 +51,16 @@ class RepositoryServiceProvider extends ServiceProvider {
 			);
 		});
 
+		$this->app->bind('Blog\Repositories\Playlists\PlaylistsInterface', function($app) {
+			return new EloquentPlaylists(new Playlists);
+		});
+
 		$this->app->bind('Blog\Repositories\Tags\TagsInterface', function($app) {
 			return new EloquentTags(new Tags);
+		});
+
+		$this->app->bind('Blog\Repositories\Tracks\TracksInterface', function($app) {
+			return new EloquentTracks(new Tracks);
 		});
 
 		$this->app->bind('Blog\Repositories\Travel\TravelInterface', function($app) {
