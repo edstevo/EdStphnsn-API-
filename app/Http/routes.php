@@ -26,6 +26,9 @@ Route::get('blog', 'BlogController@index');
 Route::get('blog/latest', 'BlogController@latest');
 Route::get('blog/{post_id}', 'BlogController@show')->where('post_id', '[0-9]+');
 
+Route::resource('playlists', 'PlaylistController', array('only' => array('index', 'show')));
+Route::resource('tracks', 'TrackController', array('only' => array('index', 'show')));
+
 Route::resource('travel', 'TravelController', array('only' => array('index', 'show')));
 
 Route::get('tags', 'TagController@index');
@@ -36,4 +39,7 @@ Route::group(['middleware' => 'auth.basic'], function()
 {
 	Route::resource('posts', 'PostController', array('only' => array('index', 'store', 'show', 'update')));
 	Route::get('drafts', 'PostController@draftPosts');
+
+	Route::resource('playlists', 'PlaylistController', array('only' => array('store', 'update', 'destroy')));
+	Route::resource('tracks', 'TrackController', array('only' => array('store', 'update', 'destroy')));
 });
