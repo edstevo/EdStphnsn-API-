@@ -10,7 +10,7 @@ class Playlists extends Model {
 	protected $appends 	= [];
 	protected $hidden 	= [];
 
-	public function playlist()
+	public function tracks()
 	{
 		return $this->belongsToMany('Blog\Tracks');
 	}
