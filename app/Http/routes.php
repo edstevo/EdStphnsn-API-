@@ -11,8 +11,6 @@
 |
 */
 
-Auth::loginUsingId(1);
-
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@login']);
 Route::post('/auth', ['as' => 'auth.adminCheck', 'uses' => 'Auth\AuthController@adminCheck']);
