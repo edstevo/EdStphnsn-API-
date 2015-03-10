@@ -20,7 +20,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasMany('Blog\Posts', 'created_by');
 	}
 
-	public function getFullNameAttribute()
+	public function getNameAttribute()
 	{
 		if (is_null($this->firstname))
 		{
