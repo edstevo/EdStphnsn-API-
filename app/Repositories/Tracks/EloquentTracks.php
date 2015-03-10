@@ -44,6 +44,13 @@ class EloquentTracks implements TracksInterface {
 			]);
 	}
 
+	public function syncPlaylists($track_id, $playlist_ids)
+	{
+		return $this->tracks->find($track_id)
+						->playlists()
+						->sync($playlist_ids);
+	}
+
 	public function update($track_id, $track_data)
 	{
 		$track = $this->tracks->find($track_id);

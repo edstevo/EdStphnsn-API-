@@ -12,11 +12,11 @@ class TracksPlaylists extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('tracks_playlists', function(Blueprint $table)
+		Schema::create('playlists_tracks', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('track_id');
-			$table->integer('playlist_id');
+			$table->integer('tracks_id');
+			$table->integer('playlists_id');
 		});
 	}
 
@@ -27,7 +27,7 @@ class TracksPlaylists extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('tracks_playlists');
+		Schema::drop('playlists_tracks');
 	}
 
 }
