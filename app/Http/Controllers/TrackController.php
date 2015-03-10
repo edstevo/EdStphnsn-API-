@@ -34,7 +34,7 @@ class TrackController extends Controller {
 	public function store(Request $request)
 	{
 		$track	= $this->tracks->store($request->only('name', 'artist', 'link'));
-		$sync	= $this->tracks->syncPlaylists([$request->get('playlist_id')]);
+		$sync	= $this->tracks->syncPlaylists($track->id, [$request->get('playlist_id')]);
 		return $this->show($track->id);
 	}
 
