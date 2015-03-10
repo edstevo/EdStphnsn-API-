@@ -37,6 +37,10 @@ class EloquentPosts implements PostsInterface {
 		$post->lat 					= $post_data['lat'];
 		$post->lng 					= $post_data['lng'];
 		$post->formatted_address 	= $post_data['formatted_address'];
+		if (array_key_exists('created_at', $post_data))
+		{
+			$post->created_at 		= $post_data['created_at'];
+		}
 		$post->save();
 		return $post;
 	}

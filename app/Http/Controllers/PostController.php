@@ -46,7 +46,7 @@ class PostController extends Controller {
 
 	public function store(StorePostRequest $request)
 	{
-		$post			= $this->posts->updateOrCreate($request->only('id', 'title', 'type', 'draft', 'content', 'lat', 'lng', 'formatted_address'));
+		$post			= $this->posts->updateOrCreate($request->only('id', 'title', 'type', 'draft', 'content', 'lat', 'lng', 'formatted_address', 'created_at'));
 		$tags 			= $this->tags_functions->convertToIds($request->get('tags'));
 		$sync_tags 		= $this->posts->syncTags($post->id, $tags);
 
@@ -64,7 +64,7 @@ class PostController extends Controller {
 
 	public function update(UpdatePostRequest $request, $post_id)
 	{
-		$post			= $this->posts->update($post_id, $request->only('title', 'type', 'draft', 'content', 'lat', 'lng', 'formatted_address'));
+		$post			= $this->posts->update($post_id, $request->only('title', 'type', 'draft', 'content', 'lat', 'lng', 'formatted_address', 'created_at'));
 		$tags 			= $this->tags_functions->convertToIds($request->get('tags'));
 		$sync_tags 		= $this->posts->syncTags($post->id, $tags);
 
