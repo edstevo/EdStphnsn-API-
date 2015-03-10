@@ -46,7 +46,7 @@ class TrackController extends Controller {
 	 */
 	public function show($track_id)
 	{
-		$track = $this->tracks->all($track_id);
+		$track = $this->tracks->find($track_id);
 		return Response::make(['data' => $track], 200);
 	}
 
