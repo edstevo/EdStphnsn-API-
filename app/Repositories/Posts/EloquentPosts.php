@@ -7,6 +7,7 @@ use Blog\Functions\Posts\PostsFunctions;
 use Blog\Posts;
 
 //	Other
+use Carbon;
 use Config;
 
 class EloquentPosts implements PostsInterface {
@@ -39,7 +40,7 @@ class EloquentPosts implements PostsInterface {
 		$post->formatted_address 	= $post_data['formatted_address'];
 		if (array_key_exists('created_at', $post_data))
 		{
-			$post->created_at 		= $post_data['created_at'];
+			$post->created_at 		= Carbon::parse($post_data['created_at']);
 		}
 		$post->save();
 		return $post;
@@ -47,7 +48,8 @@ class EloquentPosts implements PostsInterface {
 
 	public function update($post_id, $post_data)
 	{
-		$post_data['content']	= $this->post_functions->linkifyContent($post_data['content']);
+		$post_data['content']		= $this->post_functions->linkifyContent($post_data['content']);
+		$post_data['created_at']	= Carbon::parse($post_data['created_at']);
 
 		$post = $this->posts->find($post_id);
 
