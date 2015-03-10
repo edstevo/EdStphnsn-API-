@@ -31,7 +31,7 @@ class PlaylistController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
 		$playlist	= $this->playlists->store($request->only('name'));
 		return $this->index();
