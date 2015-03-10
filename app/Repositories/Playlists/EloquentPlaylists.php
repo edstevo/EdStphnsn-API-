@@ -22,7 +22,7 @@ class EloquentPlaylists implements PlaylistsInterface {
 
 	public function find($playlist_id)
 	{
-		return $this->playlists->find($playlist_id);
+		return $this->playlists->with('tracks')->find($playlist_id);
 	}
 
 	public function store($playlist_data)

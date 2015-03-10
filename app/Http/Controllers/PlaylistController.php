@@ -45,7 +45,7 @@ class PlaylistController extends Controller {
 	 */
 	public function show($playlist_id)
 	{
-		$playlist = $this->playlists->all($playlist_id);
+		$playlist = $this->playlists->find($playlist_id);
 		return Response::make(['data' => $playlist], 200);
 	}
 
