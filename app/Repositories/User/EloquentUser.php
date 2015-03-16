@@ -10,10 +10,10 @@ class EloquentUser implements UserInterface {
 		$this->user 	= $user;
 	}
 
-	public function findByEmailOrCreate($user_email)
+	public function findByUsernameOrCreate($username)
 	{
 		return $this->user->firstOrCreate([
-				'email'	=> $user_email
+				'username'	=> $username
 			]);
 	}
 

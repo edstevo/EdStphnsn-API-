@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Response;
 
+use Blog\Repositories\User\UserInterface;
+
 class AuthController extends Controller {
 
 	/*
@@ -27,11 +29,12 @@ class AuthController extends Controller {
 	{
 		$this->auth 				= $auth;
 		$this->registrar 			= $registrar;
+		$this->user 				= $user;
 	}
 
 	public function adminCheck(Request $request)
 	{
-		$user_data	= $this->auth->user();
+		$user_data	= $this->user->findByUsernameOrCreate($request->username);
 		return Response::make(['data' => $user_data], 200);
 	}
 
