@@ -2,6 +2,7 @@
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Symfony\Component\HttpFoundation\Response;
 
 use Blog\Repositories\User\UserInterface;
 
@@ -39,6 +40,12 @@ class Authenticate {
 		preg_match('/Basic\s+(.*)$/i', $request->header('Authorization'), $auth_header);
 		$username 	= base64_decode($auth_header[1]);
 		$username	= str_replace(":", "", $username);
+
+		if($username == "")
+		{
+			$headers = ['WWW-Authenticate' => 'Basic'];
+			return new Response('Invalid credentials.', 401, $headers);
+		}
 
 		$user 		= $this->user->findByUsernameOrCreate($username);
 
