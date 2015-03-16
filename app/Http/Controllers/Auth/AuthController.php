@@ -25,7 +25,8 @@ class AuthController extends Controller {
 	use AuthenticatesAndRegistersUsers;
 
 	public function __construct(	Guard $auth,
-									Registrar $registrar	)
+									Registrar $registrar,
+									UserInterface $user	)
 	{
 		$this->auth 				= $auth;
 		$this->registrar 			= $registrar;
