@@ -2,7 +2,7 @@
 
 interface UserInterface {
 
-	public function findByUsernameOrCreate($user_email);
+	public function findByUsernameOrCreate($username);
 
 	public function getPosts($user);
 

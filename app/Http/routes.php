@@ -33,7 +33,7 @@ Route::get('tags', 'TagController@index');
 
 Route::get('/core/post-types', ['as' => 'core.post-types', 'uses' => 'CoreController@getPostTypes']);
 
-Route::group(['middleware' => 'auth.basic'], function()
+Route::group(['middleware' => 'auth'], function()
 {
 	Route::resource('posts', 'PostController', array('only' => array('index', 'store', 'show', 'update')));
 	Route::get('drafts', 'PostController@draftPosts');

@@ -3,6 +3,8 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
+use Blog\Repositories\User\UserInterface;
+
 class Authenticate {
 
 	/**
@@ -18,9 +20,11 @@ class Authenticate {
 	 * @param  Guard  $auth
 	 * @return void
 	 */
-	public function __construct(Guard $auth)
+	public function __construct(	Guard $auth,
+									UserInterface $user	)
 	{
 		$this->auth = $auth;
+		$this->user = $user;
 	}
 
 	/**
@@ -32,17 +36,13 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($this->auth->guest())
-		{
-			if ($request->ajax())
-			{
-				return response('Unauthorized.', 401);
-			}
-			else
-			{
-				return redirect()->guest('auth/login');
-			}
-		}
+		preg_match('/Basic\s+(.*)$/i', $request->header('Authorization'), $auth_header);
+		$username 	= base64_decode($auth_header[1]);
+		$username	= str_replace(":", "", $username);
+
+		$user 		= $this->user->findByUsernameOrCreate($username);
+
+		$this->auth->login($user);
 
 		return $next($request);
 	}
