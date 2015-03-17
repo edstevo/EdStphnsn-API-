@@ -37,4 +37,9 @@ class Posts extends Model {
 		return $this->belongsToMany('Blog\Tags');
 	}
 
+	public function getDraftAttribute($value)
+	{
+		return ($value) ? true : false;
+	}
+
 }
