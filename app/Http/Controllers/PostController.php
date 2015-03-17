@@ -58,7 +58,7 @@ class PostController extends Controller {
 		$post				= $this->posts->find($post_id);
 		$return				= json_decode($post->toJson());
 		$return->tags 		= $post->tags->lists('name');
-		$return->content 	= $this->post_functions->removeLinks($post->content);
+
 		return Response::make(['data'	=> $return], 200);
 	}
 
